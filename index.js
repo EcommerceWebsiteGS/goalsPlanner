@@ -35,7 +35,14 @@ var userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User",userSchema);
 // ################################
-
+const contactSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    message: String,
+  });
+  
+  // create a model for the contact form data
+  const Contact = mongoose.model('Contact', contactSchema);
 //Goal info table
 var goalSchema = new mongoose.Schema({
     goal:String,
@@ -47,7 +54,7 @@ var goalSchema = new mongoose.Schema({
 const Goal = mongoose.model("Goal",goalSchema);
 
 // ################################
-const PORT = 3003 || process.env.PORT
+const PORT = 3006 || process.env.PORT
 
 function formatDate(date) {
     date = new Date(date);
@@ -154,6 +161,34 @@ app.get('/home/:id',verifyJwtToken,async (req,res)=>{
 app.get('/login',(req,res)=>{
     res.render('login')
 })
+app.get('/about',(req,res)=>{
+    res.render('about')
+})
+app.get('/contact',(req,res)=>{
+    res.render('contact')
+})
+app.post('/contact', async (req, res) => {
+    try {
+      const { name, email, message } = req.body;
+  
+      // validate the input data
+      if (!name || !email || !message) {
+        throw new Error('All fields are required');
+      }
+  
+      // create a new contact instance with the input data
+      const contact = new Contact({ name, email, message });
+  
+      // save the contact to the database
+      await contact.save();
+  
+      // redirect to a thank-you page
+      res.redirect('/contact');
+    } catch (error) {
+      // return an error message to the user
+      res.status(400).json({ error: error.message });
+    }
+  });
 
 app.get('/logout/:id',async (req,res)=>{
     let user = await User.findById(req.params.id);
