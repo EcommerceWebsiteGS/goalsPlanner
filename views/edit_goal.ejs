@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Goal</title>
+</head>
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-top: 50px;
+    }
+    form {
+      width: 300px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+    }
+    a{
+        width: 80px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+      } 
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="email"],
+    input[type="date"],
+    input[type="text"],
+    input[type="password"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+    }
+    input[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    input[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+
+    button {
+        background-color: #3e8e41;
+        color: #333;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+      }
+      
+      th, td {
+        padding: 8px;
+        text-align: left;
+      }
+      
+      th {
+        background-color: #f2f2f2;
+        color: #333;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      
+  </style>
+<body>
+    <h1>Edit Your Goal:</h1>
+    <form action="/goals/<%= goal.user_id %>/<%=goal._id %>/edit?_method=PUT" method="post">
+        <label for="goal">Goal</label>
+        <input type="text" id="goal" name="goal[goal]" value="<%=goal.goal%>">
+        <label for="start_date">Start Date</label>
+        <input type="date" id="start_date" name="goal[start_date]" value="<%=goal.start_date%>">
+        <label for="end_date">End Date</label>
+        <input type="date" id="end_date" name="goal[end_date]" value="<%=goal.end_date%>">
+        <label for="desc">Desc</label>
+        <input type="text" id="desc" name="goal[desc]" value="<%=goal.desc%>">
+        <input type="submit">
+    </form>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal page</title>
+</head>
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-top: 50px;
+    }
+    form {
+      width: 300px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+    }
+    a{
+        width: 80px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+      } 
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="email"],
+    input[type="date"],
+    input[type="text"],
+    input[type="password"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.2);
+    }
+    input[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    input[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+
+    button {
+        background-color: #3e8e41;
+        color: #333;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+      }
+      table {
+        border: 1px solid #332a2a;
+        border-collapse: collapse;
+        width: 100%;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+      }
+      
+      th, td {
+        border: 1px solid #332a2a;
+        padding: 8px;
+        text-align: left;
+      }
+      
+      th {
+        border: 1px solid #332a2a;
+        background-color: #f2f2f2;
+        color: #333;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      
+  </style>
+<body>
+    <a href="/logout/<%= id %>"><button>Logout</button></a><br><br>
+    <h1>Add Goal:</h1>
+    <form action="/goals/<%= id %>" method="post">
+        <input type="text" placeholder="Enter a goal" name="goal">
+        <label for="start_date">Start Date:</label>
+        <input type="date" name="start_date" id="start_date">
+        <label for="end_date">End Date:</label>
+        <input type="date" name="end_date" id="end_date">
+        <input type="text" placeholder="Write description of your goal" name="desc">
+        <button>Add Goal</button>
+    </form>
+    <hr>
+    <h2>Your Goals:</h2>
+
+    <section class="show">
+
+        <table class="table">
+            <tr>
+            <th>Goal</th>
+            <th>Start Date`</th>
+            <th>End Date</th>
+            <th>Description</th>
+        </tr>
+        <% goals.forEach(function(user_goal){ %>
+            <tr> <td> <h4><%= user_goal.goal %></h4> </td>    
+            <td><h5><%= user_goal.start_date %></h5> </td>
+            <td><h5><%= user_goal.end_date %></h5></td>
+            <td><h5><%= user_goal.desc %></h5></td>
+            <td><a href="/goals/<%= id %>/<%=user_goal._id %>/edit"><button>Edit</button></a></td>
+            <td><form action="/goals/<%= id %>/<%=user_goal._id %>/?_method=DELETE" method="POST"><button>Delete</button></form></td>
+            </tr>
+        <% }) %>
+    </table>
+
+    </section>
+ 
+</body>
+</html>
